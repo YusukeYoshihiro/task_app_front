@@ -1,4 +1,27 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# task_app_front
+
+Installed Tools
+ `  "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.58",
+    "@reduxjs/toolkit": "^1.6.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^12.20.15",
+    "@types/react": "^16.14.8",
+    "@types/react-dom": "^16.9.13",
+    "@types/react-redux": "^7.1.16",
+    "@types/react-router-dom": "^5.1.7",
+    "axios": "^0.21.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.1.5" 
+`
 
 ## Available Scripts
 
@@ -37,9 +60,4 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-# task_app_front
