@@ -1,4 +1,4 @@
-import { bindActionCreators, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import axios from 'axios';
 import {
@@ -10,7 +10,7 @@ import {
   JWT,
   USER,
 } from "../types"
-import { profile } from 'console';
+
 
 // Loginの非同期関数の定義
 export const fetchAsyncLogin = createAsyncThunk (
@@ -33,7 +33,7 @@ export const fetchAsyncRegister = createAsyncThunk (
   "auth/register",
   async (auth: CRED) =>{
     const res = await axios.post<USER>(
-      `${process.env.REACT_APP_API_URL}/api/create`,
+    `${process.env.REACT_APP_API_URL}/api/create/`,
       auth,{
         headers :{
           "Content-Type": "application/json",
