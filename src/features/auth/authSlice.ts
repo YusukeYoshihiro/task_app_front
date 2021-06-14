@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { bindActionCreators, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import axios from 'axios';
 import {
@@ -10,6 +10,7 @@ import {
   JWT,
   USER,
 } from "../types"
+import { profile } from 'console';
 
 // Loginの非同期関数の定義
 export const fetchAsyncLogin = createAsyncThunk (
@@ -19,7 +20,7 @@ export const fetchAsyncLogin = createAsyncThunk (
       `${process.env.REACT_APP_API_URL}/authen/jwt/create`,
       auth,{
         headers :{
-          "Content-Type": "application-json",
+          "Content-Type": "application/json",
         },
       }
     );
@@ -35,7 +36,7 @@ export const fetchAsyncRegister = createAsyncThunk (
       `${process.env.REACT_APP_API_URL}/api/create`,
       auth,{
         headers :{
-          "Content-Type": "application-json",
+          "Content-Type": "application/json",
         },
       }
     );
@@ -44,7 +45,7 @@ export const fetchAsyncRegister = createAsyncThunk (
 );
 
 //  Login済みユーザー情報を取得するための非同期関数の定義
-export const fetchAsyncGetProf = createAsyncThunk(
+export const fetchAsyncGetMyProf = createAsyncThunk(
   "auth/loginuser",
   async()=>{
     const res = await axios.get<LOGIN_USER>(
@@ -77,6 +78,42 @@ export const fetchAsyncCreateProf = createAsyncThunk(
   }
 )
 
+// Profileの一覧を取得する非同期関数の定義
+export const fetchAsyncGetProfs = createAsyncThunk(
+  "auth/getProfile",
+  async()=>{
+    const res = await axios.get<PROFILE[]>(
+      `${process.env.REACT_APP_API_URL}/api/profile/`,
+      {
+        headers: {
+          Authorization: `JWT ${localStorage.localJWT}`,
+        },
+     }
+    );
+    return res.data;
+  }
+)
+
+// Profileのアップデートする非同期関数の定義
+export const fetchAsyncUpdateProf = createAsyncThunk(
+  "auth/updateProfile",
+  async(profile: POST_PROFILE)=>{
+    const uploadData = new FormData();
+    profile.img && uploadData.append("img", profile.img, profile.img.name);
+    const res = await axios.put<PROFILE>(
+    `${process.env.REACT_APP_API_URL}/api/profile/${profile.id}/`,
+    uploadData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${localStorage.localJWT}`,
+        },
+     }
+    );
+    return res.data;
+  }
+)
+
 
 
 const initialState: AUTH_STATE = {
@@ -92,11 +129,61 @@ const initialState: AUTH_STATE = {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    toggleMode(state){
+      state.isLoginView = !state.isLoginView;
+    }
+  },
+  extraReducers:(builder)=>{
+    // ログインが成功した場合、access Token を取得し、それを元に"/tasks"に遷移する。
+    builder.addCase(
+      fetchAsyncLogin.fulfilled,
+      (state, action: PayloadAction<JWT>)=>{
+        localStorage.setItem("localJWT", action.payload.access);
+        action.payload.access && (window.location.href = "/tasks")
+      }
+    );
+  　　// ログインしているユーザーのprofileデータを取得したときの処理
+    builder.addCase(
+      fetchAsyncGetMyProf.fulfilled,
+      (state, action: PayloadAction<LOGIN_USER>)=>{
+        return {
+          ...state,
+          loginUser: action.payload,
+        }
+      }
+    );
+     // profileの一覧の情報を取得した後の処理
+    builder.addCase(
+      fetchAsyncGetProfs.fulfilled,
+      (state, action: PayloadAction<PROFILE[]>) => {
+        return {
+          ...state,
+          profiles: action.payload,
+        }
+      }
+    );
+    // profileの更新が完了した後の処理
+    builder.addCase(
+      fetchAsyncUpdateProf.fulfilled,
+      (state, action: PayloadAction<PROFILE>) => {
+        return {
+          ...state,
+          profiles: state.profiles.map((prof)=>
+          prof.id=== action.payload.id ? action.payload: prof
+         ),
+        }
+      }
+    );
+  }
 });
 
-export const {  } = authSlice.actions;
+export const { toggleMode} = authSlice.actions;
 
 export const selectCount = (state: RootState) => state.counter.value;
+
+export const selectIsLoginView = (state: RootState)=> state.auth.isLoginView;
+export const selectLoginUser = (state: RootState)=> state.auth.loginUser;
+export const selectProfiles = (state: RootState)=> state.auth.profiles;
 
 export default authSlice.reducer;
