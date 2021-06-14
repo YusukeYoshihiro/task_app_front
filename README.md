@@ -1,31 +1,19 @@
 # task_app_front
 
 Installed Tools
- `  "@material-ui/core": "^4.11.4",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.58",
-    "@reduxjs/toolkit": "^1.6.0",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "@types/jest": "^24.9.1",
-    "@types/node": "^12.20.15",
-    "@types/react": "^16.14.8",
-    "@types/react-dom": "^16.9.13",
-    "@types/react-redux": "^7.1.16",
-    "@types/react-router-dom": "^5.1.7",
-    "axios": "^0.21.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-redux": "^7.2.4",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
-    "typescript": "^4.1.5" 
+  `"@material-ui/core": "^4.11.4",`
+  `"@material-ui/icons": "^4.11.2",`
+  `"@material-ui/lab": "^4.0.0-alpha.58",`
+  `"@reduxjs/toolkit": "^1.6.0",`
+  `"@types/react-router-dom": "^5.1.7",`
+  `"axios": "^0.21.1",`
+  `"react-router-dom": "^5.2.0",`
+  `"typescript": "^4.1.5" `
 `
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, you can create: `npx create-react-app . --template redux-typescript --use-npm`
 
 ### `npm start`
 
