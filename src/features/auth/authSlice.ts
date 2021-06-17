@@ -179,11 +179,7 @@ export const authSlice = createSlice({
 });
 
 export const { toggleMode} = authSlice.actions;
-
-export const selectCount = (state: RootState) => state.counter.value;
-
 export const selectIsLoginView = (state: RootState)=> state.auth.isLoginView;
 export const selectLoginUser = (state: RootState)=> state.auth.loginUser;
 export const selectProfiles = (state: RootState)=> state.auth.profiles;
-
 export default authSlice.reducer;
