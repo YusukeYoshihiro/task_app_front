@@ -69,7 +69,7 @@ export const fetchAsyncCreateProf = createAsyncThunk(
        {img: null},
       {
         headers: {
-          "Content-Type": "application-json",
+          "Content-Type": "application/json",
           Authorization: `JWT ${localStorage.localJWT}`,
         },
      }
@@ -170,7 +170,7 @@ export const authSlice = createSlice({
         return {
           ...state,
           profiles: state.profiles.map((prof)=>
-          prof.id=== action.payload.id ? action.payload: prof
+          prof.id === action.payload.id ? action.payload : prof
          ),
         }
       }
