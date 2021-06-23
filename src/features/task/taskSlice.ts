@@ -65,7 +65,7 @@ export const fetchAsyncCreateCategory = createAsyncThunk(
   }
 );
 
-// タスクを新規でを作成する非同期関数
+//タスクを新規でを作成する非同期関数
 export const fetchAsyncCreateTask = createAsyncThunk(
   "task/createTask",
   async (task: POST_TASK) => {
@@ -201,7 +201,7 @@ export const taskSlice = createSlice({
        }
       }
     );
-    // JWTのトークン認証のアクセスタイム（３０分）が経過した場合、再度ログインを促す。
+    // JWTのトークン認証のアクセスタイム（３０min）が経過した場合、再度ログインを促す。
     builder.addCase(fetchAsyncGetTasks.rejected, ()=> {
       window.location.href = '/';
     });
