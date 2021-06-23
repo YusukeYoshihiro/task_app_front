@@ -65,7 +65,7 @@ export const fetchAsyncCreateCategory = createAsyncThunk(
   }
 );
 
-// タスクを新規でを作成する非同期関数
+//タスクを新規でを作成する非同期関数
 export const fetchAsyncCreateTask = createAsyncThunk(
   "task/createTask",
   async (task: POST_TASK) => {
